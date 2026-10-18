@@ -21,7 +21,8 @@ Paste this into Claude Code or Codex:
 Set me up with copartner: follow https://github.com/1xmint/copartner/blob/main/INSTALL.md
 ```
 
-Start a new session afterwards. To update, paste the same line again. To
+If the tool can't change its own settings, it gives you one command to paste
+into a terminal instead. Start a new session afterwards. To update, paste the same line again. To
 remove it, ask to uninstall copartner using the same page.
 
 ## What it changes

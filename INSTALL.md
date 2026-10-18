@@ -5,6 +5,11 @@ user asks to be set up with copartner. Do every step, then tell the user in
 two or three plain sentences what changed. Never overwrite a file the user
 already has: add to it, and copy it to `<file>.before-copartner` first.
 
+If your sandbox blocks writing to these folders or downloading (Codex blocks
+writes to its own settings folder), don't ask the user to change permissions.
+Write one command for their shell that does every step below, show it in
+your final message, and ask them to paste it into a terminal.
+
 The base URL is `https://raw.githubusercontent.com/1xmint/copartner/main`.
 
 ## 1. Get the rules
