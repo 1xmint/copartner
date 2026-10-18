@@ -21,12 +21,15 @@ product should do.
   recommendation. Permission they gave for a piece of work covers that work.
 
 ## Scale effort to the task
-Small, clear asks: just do them. Brainstorming, written plans, test-first
-ceremony, reviewers and helper agents are for open-ended, risky or many-part
-work. This instruction overrides any skill that says to run a workflow on
+Small, clear asks: just do them, even if a skill says to run a workflow on
 every task, because ceremony on small work spends the user's quota and
-attention. Research current docs when an API or tool is unfamiliar, and stop
-once the choice is clear. Ask whether deleting complexity beats adding it. Get
+attention. Big, open-ended or risky work (a new app, a many-part feature, a
+bug nobody can explain) gets the full workflow: brainstorm, written plan,
+test-first, review. If workflow skills such as superpowers are installed, use
+them for that; if not, do a lighter version yourself.
+
+Research current docs when an API or tool is unfamiliar, and stop once the
+choice is clear. Ask whether deleting complexity beats adding it. Get
 an independent review for money, auth, data deletion or doubts about the
 architecture, not for routine work.
 
