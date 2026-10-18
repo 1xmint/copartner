@@ -31,6 +31,12 @@
 - So in both tools the real install is the user pasting one command. The
   agent writes that command fresh each time, which can vary or be wrong.
 
+## 2026-10-17: superpowers for big work
+- The effort rule now names superpowers: use it for big, open-ended work and
+  skip it for small asks, so the agent picks by itself. Why: the owner wants
+  the full workflow on big projects without asking for it each time, and no
+  ceremony on small ones.
+
 Known problems:
 - Not yet checked: that Codex can write project notes to `~/.copartner`
   after the `writable_roots` change. (Claude's auto mode did allow writing
