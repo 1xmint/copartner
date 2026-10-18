@@ -45,16 +45,27 @@ missing), unless it is already there:
 Skip this step if that file already imports `~/.codex/AGENTS.md`, because
 Claude then gets the rules through step 2 and would load them twice.
 
-## 4. Check
-Show the user that the marker block is in `~/.codex/AGENTS.md` and the import
+## 4. Skills
+Download `skills/engineer-project/SKILL.md` from the base URL to both of
+these, replacing any older copy (Claude Code reads the first, Codex the
+second):
+
+- `~/.claude/skills/engineer-project/SKILL.md`
+- `~/.agents/skills/engineer-project/SKILL.md`
+
+## 5. Check
+Show the user that the marker block is in `~/.codex/AGENTS.md`, the import
 line (or the existing `~/.codex/AGENTS.md` import) is in
-`~/.claude/CLAUDE.md`. The rules take effect in the next new session.
+`~/.claude/CLAUDE.md`, and both skill files exist. Everything takes effect in
+the next new session.
 
 ## Update
-Run the same steps again. They replace the rules and change nothing else.
+Run the same steps again. They replace the rules and skill and change
+nothing else.
 
 ## Uninstall
 Remove the marker block from `~/.codex/AGENTS.md`, the import line from
-`~/.claude/CLAUDE.md`, and the `~/.copartner` entry from `writable_roots`.
+`~/.claude/CLAUDE.md`, the `~/.copartner` entry from `writable_roots`, and
+the two `engineer-project` skill folders.
 Leave `~/.copartner/projects/`, because those are the user's project notes;
 tell them it is there and that they can delete it.

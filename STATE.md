@@ -37,6 +37,16 @@
   the full workflow on big projects without asking for it each time, and no
   ceremony on small ones.
 
+## 2026-10-17: phase-by-phase projects
+- Added the `engineer-project` skill: roadmap in the project note, one
+  go-ahead, then plan, build, prove and merge each phase, resuming from the
+  note in later sessions. Why: the owner's main want is managing a big
+  project across many phases. A skill, not rules, so it costs nothing on
+  small asks. Built on superpowers rather than GSD, which writes planning
+  files into the repo and spends heavily.
+- Installed to `~/.claude/skills/` (Claude Code) and `~/.agents/skills/`
+  (Codex).
+
 Known problems:
 - Not yet checked: that Codex can write project notes to `~/.copartner`
   after the `writable_roots` change. (Claude's auto mode did allow writing
@@ -45,5 +55,5 @@ Known problems:
 Next:
 1. Ship a tested one-command installer (and uninstaller) in the repo, so
    the agent hands over that command instead of writing one.
-2. On-demand skills (plan a big feature, review money/auth code, pick up
-   where we left off), only if real use shows a gap they fill.
+2. More on-demand skills (such as reviewing money or auth code), only if
+   real use shows a gap they fill.
