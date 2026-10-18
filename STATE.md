@@ -16,8 +16,15 @@
   reports what could be better; that feedback drives changes. Why: scripted
   runs spend quota and test made-up tasks.
 
+## 2026-10-17: install test, Codex
+- A fresh Codex session could not install: its sandbox blocks writes to
+  `~/.codex` even when the folder is granted. It wrote the user a one-command
+  installer instead, so that is now the documented fallback.
+- Codex adds a trust entry to `config.toml` for any folder it runs in; that
+  is Codex, not the install.
+
 Known problems:
-- Not yet checked: that Codex can write to `~/.copartner` after the
+- Not yet checked: the Claude Code install, and that Codex can write to `~/.copartner` after the
   `writable_roots` change, and that Claude's auto mode allows writing there
   and allows the install itself.
 
