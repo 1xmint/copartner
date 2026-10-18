@@ -10,8 +10,8 @@ subscription, with no API key and no outside service.
 Always true:
 - `rules.md` is read on every turn, so it stays small. CI fails it above its
   byte limit; raising the limit needs a dated reason in STATE.md.
-- A rules change ships only if it measures better than plain Claude Code and
-  Codex on the comparison tasks, on quality or quota.
+- Rules change because of what real use on projects shows, not on a hunch.
+  Each change says in STATE.md what it fixes.
 - Install never overwrites a user's file and can be fully undone.
 - No person's name, home folder path, email or account detail in any file.
 
