@@ -32,6 +32,10 @@ remove it, ask to uninstall copartner using the same page.
 - It asks you only about what the product should do, money, credentials and
   anything public or irreversible, and leads with a recommendation.
 - "Done" comes with evidence: the check that ran or the flow it drove.
+- Big projects run phase by phase: ask it to engineer something big and it
+  writes a roadmap, gets one go-ahead, then plans, builds, proves and merges
+  each phase, picking up where it left off in a new session. (The
+  `engineer-project` skill; it uses superpowers if you have it.)
 - It keeps the always-on text short, because every line is read on every
   turn and spends your quota.
 
