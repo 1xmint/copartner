@@ -10,8 +10,8 @@ same on a tidy repo or a messy one. It is one short rules file that both tools
 load, plus one short note per project kept in `~/.copartner/projects/`. It
 works on a normal Claude or ChatGPT subscription; no API key.
 
-> **Early.** It has not yet been measured against plain Claude Code and Codex.
-> That comparison comes before the first release.
+> **Early.** It is being tried on real projects; changes come from what that
+> use shows.
 
 ## Install
 
