@@ -23,12 +23,21 @@
 - Codex adds a trust entry to `config.toml` for any folder it runs in; that
   is Codex, not the install.
 
+## 2026-10-17: install test, Claude Code
+- A fresh Claude Code session downloaded the rules, correctly skipped its own
+  import (the user file already imported the Codex file), then stopped:
+  auto mode blocks an agent editing its own instruction files. It offered a
+  paste-in command, as the fallback says.
+- So in both tools the real install is the user pasting one command. The
+  agent writes that command fresh each time, which can vary or be wrong.
+
 Known problems:
-- Not yet checked: the Claude Code install, and that Codex can write to `~/.copartner` after the
-  `writable_roots` change, and that Claude's auto mode allows writing there
-  and allows the install itself.
+- Not yet checked: that Codex can write project notes to `~/.copartner`
+  after the `writable_roots` change. (Claude's auto mode did allow writing
+  there.)
 
 Next:
-1. A fresh-session install test in each tool.
+1. Ship a tested one-command installer (and uninstaller) in the repo, so
+   the agent hands over that command instead of writing one.
 2. On-demand skills (plan a big feature, review money/auth code, pick up
    where we left off), only if real use shows a gap they fill.
