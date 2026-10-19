@@ -93,6 +93,23 @@ Anthropic's and Cognition's write-ups):
 Merged before a real run, by the owner's call: they prove it by using it
 on real projects and report back what works worse or better.
 
+## 2026-10-19: judgement questions go to the Architect
+- Real use: a fresh Sonnet chat was asked how sound copartner is and how it
+  compares with other agent systems. It answered from memory in about two
+  minutes, with no web search, no Architect and no skill. The escalation
+  triggers lived only in engineer-project, which loads for building, not
+  for questions.
+- Fix: rules.md now says judgement questions (is this sound, what's best,
+  how does it compare, is it worth building, which architecture) are big
+  work: research current sources and get the Architect before answering.
+  codex-partner's description names them, so it loads for questions too.
+- engineer-project gains a "worth building?" check before the roadmap: what
+  already exists, the riskiest assumption, the cheapest test. The user's
+  goal includes knowing whether an idea is worth pursuing.
+- rules.md is 3,983 of 4,000 bytes; a shorter codex-partner line paid for it.
+- Considered and dropped: a hook as merge gate (no hooks, see AGENTS.md); a
+  separate friction log (this file already records what real use shows).
+
 Known problems:
 - Not yet checked: that Codex can write project notes to `~/.copartner`
   after the `writable_roots` change. (Claude's auto mode did allow writing
