@@ -37,7 +37,7 @@ Outcome it serves; cut tasks that serve none.
 
 Judgement questions (is this sound, what's best, how does it compare, is it
 worth building, which approach), vague big asks and the start of big work go
-through the think-it-through skill. If it can't load: goal, options (with
+through the cofounder skill. If it can't load: goal, options (with
 changing nothing), research, a challenge, one recommendation. Never stop at
 a partial answer. Otherwise research when unsure, and stop once the choice
 is clear. Ask whether deleting complexity beats adding it. Get an independent

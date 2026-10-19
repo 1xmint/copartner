@@ -46,12 +46,14 @@ Skip this step if that file already imports `~/.codex/AGENTS.md`, because
 Claude then gets the rules through step 2 and would load them twice.
 
 ## 4. Skills
-Download `skills/engineer-project/SKILL.md` and
-`skills/think-it-through/SKILL.md` from the base URL to both of these,
+Download `skills/cofounder/SKILL.md` from the base URL to both of these,
 replacing any older copy (Claude Code reads the first, Codex the second):
 
-- `~/.claude/skills/<name>/SKILL.md`
-- `~/.agents/skills/<name>/SKILL.md`
+- `~/.claude/skills/cofounder/SKILL.md`
+- `~/.agents/skills/cofounder/SKILL.md`
+
+If an older install left `engineer-project` or `think-it-through` skill
+folders in either place, remove them: `cofounder` replaces both.
 
 Then download `skills/codex-partner/SKILL.md` and
 `skills/codex-partner/codex-partner.mjs` into
@@ -59,9 +61,9 @@ Then download `skills/codex-partner/SKILL.md` and
 Claude use Codex as a partner, and works if Codex is installed and logged in.
 
 ## 5. Optional: a cheaper main chat
-Big questions and big work run through think-it-through, which switches to
-Opus at high effort by itself, so a mid-size model is enough for the rest. Ask the user once whether to
-set Claude Code's default model to Sonnet (`"model": "sonnet"` in
+Big questions and big work run through the cofounder skill, which switches
+to Opus at high effort by itself, so a mid-size model is enough for the
+rest. Ask the user once whether to set Claude Code's default model to Sonnet (`"model": "sonnet"` in
 `~/.claude/settings.json`). Change it only if they say yes.
 
 ## 6. Check
@@ -77,8 +79,7 @@ nothing else.
 ## Uninstall
 Remove the marker block from `~/.codex/AGENTS.md`, the import line from
 `~/.claude/CLAUDE.md`, the `~/.copartner` entry from `writable_roots`, and
-the `engineer-project` and `think-it-through` skill folders (two of each), the `codex-partner` skill folder
-and `~/.copartner/codex-paused.json` if it exists.
+both `cofounder` skill folders, the `codex-partner` skill folder and `~/.copartner/codex-paused.json` if it exists.
 Leave `~/.copartner/projects/` and `~/.copartner/briefs/`, because those are
 the user's project notes and research;
 tell them it is there and that they can delete it.

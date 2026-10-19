@@ -1,6 +1,6 @@
 ---
 name: codex-partner
-description: Uses Codex (GPT, on the user's ChatGPT subscription) as Claude's engineering partner while it has quota - an architect that researches and returns a short brief, challenging plans, one review before merging, a fresh diagnosis when stuck, and taking well-specified tasks off Claude's hands - then falls back to Claude when Codex runs out. Use at those moments in big or risky work, including the research and challenge steps of think-it-through - not for small asks.
+description: Uses Codex (GPT, on the user's ChatGPT subscription) as Claude's engineering partner while it has quota - an architect that researches and returns a short brief, challenging plans, one review before merging, a fresh diagnosis when stuck, and taking well-specified tasks off Claude's hands - then falls back to Claude when Codex runs out. Use at those moments in big or risky work, including the research and challenge steps of the cofounder loop - not for small asks.
 ---
 
 # Codex as engineering partner
@@ -20,7 +20,7 @@ quota faster.
 
 | Moment | Mode | Effort |
 |---|---|---|
-| Heavy research for a big call (think-it-through decides) | architect | high (xhigh for architecture, money, auth or data) |
+| Heavy research for a big call (the cofounder loop decides) | architect | high (xhigh for architecture, money, auth or data) |
 | A plan or roadmap is written, before building | challenge | high |
 | Before merging big work | review | high |
 | ...that touches money, auth, user data or the architecture | review | xhigh |
