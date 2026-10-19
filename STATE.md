@@ -90,7 +90,8 @@ Anthropic's and Cognition's write-ups):
   of better results.
 - rules.md is 3,802 of 4,000 bytes.
 
-Not yet proven: a real phase run end to end with this version (see Next).
+Merged before a real run, by the owner's call: they prove it by using it
+on real projects and report back what works worse or better.
 
 Known problems:
 - Not yet checked: that Codex can write project notes to `~/.copartner`
@@ -98,9 +99,9 @@ Known problems:
   there.)
 
 Next:
-0. Prove this version on a real feature: one approval then no stops,
-   a Codex worker merged, an Architect brief and follow-up, an interrupted
-   task recovered, and a resume from a worktree.
+0. From real use, watch for: stops after the one approval, a Codex worker's
+   work kept or redone cleanly, Architect briefs that hold up on follow-up,
+   and resuming from a worktree.
 1. Ship a tested one-command installer (and uninstaller) in the repo, so
    the agent hands over that command instead of writing one.
 2. More on-demand skills (such as reviewing money or auth code), only if
