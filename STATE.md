@@ -110,6 +110,20 @@ on real projects and report back what works worse or better.
 - Considered and dropped: a hook as merge gate (no hooks, see AGENTS.md); a
   separate friction log (this file already records what real use shows).
 
+## 2026-10-19: write the whole answer
+- Real use: two judgement-question runs (a Sonnet main chat, then an Opus
+  one) both put their whole answer into the app's end-of-turn recap and
+  question box. The user saw a one-line verdict and a question, never the
+  reasoning. Same failure on both models, so it's the instruction, not the
+  model.
+- Fix: the Talking rule now says to write the whole answer in the message;
+  a recap or question box only repeats it.
+- Paid for by shortening two sentences; rules.md is 4,000 of 4,000 bytes.
+- Also seen: in the Sonnet run, the Opus advisor tool was available and
+  was never called; the Opus run made no web search. Judgement routing is
+  still open: the evidence so far favours the main chat owning judgement
+  over handing it to the Architect. A clean re-test decides it.
+
 Known problems:
 - Not yet checked: that Codex can write project notes to `~/.copartner`
   after the `writable_roots` change. (Claude's auto mode did allow writing
