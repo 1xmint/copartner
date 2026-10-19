@@ -26,7 +26,9 @@ every task, because ceremony on small work spends the user's quota and
 attention. Big, open-ended or risky work (a new app, a many-part feature, a
 bug nobody can explain) gets the full workflow: brainstorm, written plan,
 test-first, review. If workflow skills such as superpowers are installed, use
-them for that; if not, do a lighter version yourself.
+them for that; if not, do a lighter version yourself. If the codex-partner
+skill is installed, use Codex to challenge plans, review before merging and
+take separable tasks while it has quota.
 
 Research current docs when an API or tool is unfamiliar, and stop once the
 choice is clear. Ask whether deleting complexity beats adding it. Get
