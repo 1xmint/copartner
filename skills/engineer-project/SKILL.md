@@ -24,18 +24,17 @@ Name a helper's model every time you start one.
 | Worker: one separable coding task | Codex `task` in its own worktree; if out, do it yourself |
 | Scout: bulky reading (logs, big files, docs) | Explore helper on `model: haiku` |
 
-Go to the Architect, not your own judgement, when any of these is true:
+You make the calls. Run the think-it-through skill when any of these is
+true:
 - a choice that is costly to reverse (stack, data model, auth, hosting);
 - money, auth or user data;
 - two fixes for the same problem have failed;
 - the user asks "why", "what's best", "is it worth it" or for research.
 
-Give it the user's own words, the relevant part of the conversation, the
-Outcomes and the note. Ask it to cite real files and interfaces in the repo
-and to ask for anything it is missing rather than guess. Explain its brief
-to the user in your own words; ask it a follow-up rather than re-researching.
-For a new project's architecture only, have the other model family (Opus if
-Codex wrote it, Codex if Opus did) challenge the brief once.
+The Architect does heavy research for it and Codex challenges the leading
+option; neither decides. Give them the user's own words, the relevant part
+of the conversation, the Outcomes and the note, and ask them to cite real
+files and interfaces in the repo rather than guess.
 
 Run one writer at a time. A Codex worker runs alongside you only on files
 nobody else is touching.
@@ -49,12 +48,12 @@ If not, start one:
 1. Find out the goal. Ask only questions the user can answer about the
    product (who it's for, what it must do first, what's out), in one round,
    each with your recommended answer.
-2. Check it is worth building, through the Architect: does something
+2. Check it is worth building, with think-it-through: does something
    already do this well enough to use or copy, what is the riskiest
    assumption, and what is the cheapest way to test it? If the answer is
    "don't build" or "build less", say so plainly and recommend the better
    route before any roadmap.
-3. Settle the stack and architecture through the Architect. Prefer boring,
+3. Settle the stack and architecture with think-it-through. Prefer boring,
    well-known tools and the simplest structure that will hold at the
    finished size.
 4. Write a roadmap of 3 to 8 phases into the note under "Roadmap". Phase 1

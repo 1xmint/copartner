@@ -34,11 +34,15 @@ remove it, ask to uninstall copartner using the same page.
 - "Done" comes with evidence: the check that ran or the flow it drove.
 - Every plan starts with Outcomes: what you'll see, and how it will be
   proved. Each piece of work says which Outcome it serves.
+- Big questions get a finished answer: "is this sound?" or "what's best?"
+  is worked through to the end on Opus at high effort: the real goal, the
+  options (including changing nothing), current research, an outside
+  challenge, then one recommendation. (The `think-it-through` skill.)
 - Big projects run phase by phase: ask it to engineer something big and it
   writes a roadmap with Outcomes, asks once for the go-ahead and anything
   only you can set up (accounts, keys), then plans, builds, proves and merges
   each phase, picking up where it left off in a new session. It runs the
-  team itself: an Architect for research and big design calls, one reviewer,
+  team itself: an Architect for research, one reviewer,
   and workers for separable tasks. You never manage agents. (The
   `engineer-project` skill; it uses superpowers if you have it.)
 - If you also have Codex, Claude uses it as that team on your ChatGPT

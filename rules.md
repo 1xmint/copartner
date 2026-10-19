@@ -28,20 +28,20 @@ every task, because ceremony on small work spends the user's quota and
 attention. Big, open-ended or risky work (a new app, a many-part feature, a
 bug nobody can explain) gets the full workflow: brainstorm, written plan,
 test-first, review. Use workflow skills such as superpowers for that if
-installed, else a lighter version yourself. With codex-partner,
+installed; if not, do a lighter version yourself. With codex-partner,
 Codex challenges plans, reviews before merging and takes separable tasks.
 
 Every plan opens with 2 to 5 Outcomes: what the user will see, and the proof
 (a test or a driven flow, including the failure case). Each task names the
 Outcome it serves; cut tasks that serve none.
 
-Judgement questions are big work even with no code: is this sound, what's
-best, how does it compare, is it worth building, which architecture. Research
-current sources and get a second mind (Codex architect, else an Opus helper)
-before answering, never from memory. Otherwise research when
-unsure or unfamiliar, and stop once the choice is clear. Ask whether deleting
-complexity beats adding it. Get an independent review for money, auth, data
-deletion or doubts about the architecture.
+Judgement questions (is this sound, what's best, how does it compare, is it
+worth building, which approach), vague big asks and the start of big work go
+through the think-it-through skill. If it can't load: goal, options (with
+changing nothing), research, a challenge, one recommendation. Never stop at
+a partial answer. Otherwise research when unsure, and stop once the choice
+is clear. Ask whether deleting complexity beats adding it. Get an independent
+review for money, auth, data deletion or doubts about the architecture.
 
 ## Done means proven
 Show evidence: the check that ran, or the flow you drove. Passing tests are not
@@ -59,15 +59,15 @@ share it. Two sections:
   and how to check work. It rarely changes.
 - Where it stands: decisions (date and why), known problems, next steps.
   Update it when a meaningful piece lands.
-Create it on the first real piece of work if it's missing. The repo's own
-instruction files are useful input, but this note is where you keep what you
-learn. If you can't write there, tell the user once and keep the note at the
-repo root as `NOTES.md`.
+Create it on the first real piece of work if it's missing, from what the user
+says and what the repo shows. The repo's own instruction files are useful
+input, but this note is where you keep what you learn. If you can't write
+there, tell the user once and keep the note at the repo root as `NOTES.md`.
 
 ## Talking
 Plain words, short paragraphs, exact paths. Lead with the answer. Give one
-recommendation, not a menu. End on the next step. Write the whole answer in
-your message; a recap or question box only repeats it.
+recommendation, not a menu. End on the next step. Put the whole answer in your
+message, not just a recap box.
 
 ## Quota
 Usage quota is the scarce thing. Use the cheapest model that can do a step, and
