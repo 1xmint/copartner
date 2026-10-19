@@ -124,7 +124,58 @@ on real projects and report back what works worse or better.
   still open: the evidence so far favours the main chat owning judgement
   over handing it to the Architect. A clean re-test decides it.
 
+## 2026-10-19: one cofounder loop
+- Real use: asked "how sound is copartner?", a fresh session stopped
+  partway (an audit, a task card and a question) with no options compared,
+  no research and no verdict. Nothing in copartner said what a finished
+  judgement answer is, and nothing controlled how hard it thought: effort
+  was "low" for a month, Sonnet did most of the work via opusplan, and Opus
+  5.5 ignores the top-level `effortLevel`.
+- Fix: `engineer-project` becomes `cofounder`, one loop with two stages.
+  Decide (goal, read first, real options always weighing "change nothing",
+  current research, an outside challenge, one recommendation written out
+  in full and recorded in the note) runs for every big question, at the
+  start of big work and at costly choices mid-build. Build is the old
+  phase-by-phase flow. A question ends after Decide. The bar: beat plain
+  plan mode on the same message.
+- Why one loop, not a separate question skill: the owner saw two skills and
+  rule lines as patches. The note is already the single source of truth
+  and engineer-project already the loop; the failure was that questions
+  never entered it. A full plan-graph system was rejected: the earlier
+  always-on system cost 1.36x quota for no gain (AGENTS.md), and a real
+  dependency graph only pays off with many parallel writers, which we
+  avoid on purpose.
+- The skill's frontmatter sets `model: opus` and `effort: high` while it
+  runs (skills docs), so the system picks model and effort, not the user.
+  High, not xhigh, by the owner's call: the steps carry the gain.
+- rules.md routes judgement questions, vague big asks and the start of big
+  work to it, with a one-line fallback if it doesn't load. The whole-answer
+  line stays in Talking (shorter), because a skill only loads when the
+  model picks it.
+- Codex challenged the plan. Taken: keep the rules fallback, no padded
+  option lists, a question's answer is a finished job unless work was asked
+  for, a clean plan-mode baseline (`--safe-mode`, same model and effort)
+  judged on accuracy before process. Not taken: a separate rule-only vs
+  skill comparison (extra quota; real use decides).
+- A skill's model lasts for the rest of its turn; the next message goes
+  back to the session model, though the skill's text stays in context.
+- rules.md is 3,993 of 4,000 bytes.
+
+Proof, same soundness question, 2026-10-19:
+- Copartner as a real app session (started on Sonnet): the skill loaded by
+  itself, switched to Opus, made 3 web searches, and put the whole answer
+  in the message. It skipped the challenge step (no Codex or Opus call).
+- Plain plan mode (`--safe-mode --permission-mode plan`, Opus high): also
+  a full answer, 3 searches and 4 page reads, about 6 minutes.
+- Codex judged both blind, claims checked against the repo: copartner won
+  narrowly (accuracy 7 v 6, recommendation 8 v 6, clarity 8 v 7). Both
+  overstated some claims; neither ran an outside challenge.
+- Fix: the skill now says never to skip the challenge, and the self-check
+  asks whether it ran.
+
 Known problems:
+- In the real app run the effort indicator stayed low after the skill
+  loaded, so the skill's `effort: high` may not apply in the app.
 - Not yet checked: that Codex can write project notes to `~/.copartner`
   after the `writable_roots` change. (Claude's auto mode did allow writing
   there.)
