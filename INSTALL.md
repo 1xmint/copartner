@@ -58,7 +58,13 @@ Then download `skills/codex-partner/SKILL.md` and
 `~/.claude/skills/codex-partner/`. This one is for Claude Code only: it lets
 Claude use Codex as a partner, and works if Codex is installed and logged in.
 
-## 5. Check
+## 5. Optional: a cheaper main chat
+The main chat mostly talks and coordinates, and hands deep thinking to the
+Architect, so a mid-size model is enough there. Ask the user once whether to
+set Claude Code's default model to Sonnet (`"model": "sonnet"` in
+`~/.claude/settings.json`). Change it only if they say yes.
+
+## 6. Check
 Show the user that the marker block is in `~/.codex/AGENTS.md`, the import
 line (or the existing `~/.codex/AGENTS.md` import) is in
 `~/.claude/CLAUDE.md`, and the skill files exist. Everything takes effect in
@@ -73,5 +79,6 @@ Remove the marker block from `~/.codex/AGENTS.md`, the import line from
 `~/.claude/CLAUDE.md`, the `~/.copartner` entry from `writable_roots`, and
 the two `engineer-project` skill folders, the `codex-partner` skill folder
 and `~/.copartner/codex-paused.json` if it exists.
-Leave `~/.copartner/projects/`, because those are the user's project notes;
+Leave `~/.copartner/projects/` and `~/.copartner/briefs/`, because those are
+the user's project notes and research;
 tell them it is there and that they can delete it.

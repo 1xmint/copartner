@@ -3,21 +3,45 @@
 // opinion or a delegated task, and say clearly when Codex is out of quota.
 //
 //   node codex-partner.mjs status
-//   node codex-partner.mjs ask --mode review|challenge|think|task --effort <level>
-//        [--model <slug>] [--timeout-min <n>] < prompt.txt
+//   node codex-partner.mjs ask --mode review|challenge|think|architect|task
+//        --effort <level> [--model <slug>] [--timeout-min <n>] [--dir <folder>]
+//        [--topic <slug>] < prompt.txt
+//
+// architect searches the web and prints a short brief; its full notes are
+// saved to ~/.copartner/briefs/ and the path is printed after the brief.
 //
 // Exit codes: 0 answer printed, 3 Codex unavailable (use Claude instead),
 // 1 other error, 2 bad arguments.
 
-import { spawn } from 'node:child_process';
-import { mkdirSync, readFileSync, writeFileSync, renameSync, rmSync } from 'node:fs';
+import { spawn, execFileSync } from 'node:child_process';
+import { mkdirSync, readFileSync, writeFileSync, renameSync, rmSync, statSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve, dirname, basename } from 'node:path';
 
 const DIR = join(homedir(), '.copartner');
 const PAUSE_FILE = join(DIR, 'codex-paused.json');
 const EFFORTS = ['low', 'medium', 'high', 'xhigh', 'max', 'ultra'];
-const MODES = { review: 'read-only', challenge: 'read-only', think: 'read-only', task: 'workspace-write' };
+const MODES = { review: 'read-only', challenge: 'read-only', think: 'read-only', architect: 'read-only', task: 'workspace-write' };
+const NOTES_MARK = '=== FULL NOTES ===';
+const ARCHITECT = `You are the architect for a technical cofounder who talks to a non-coding
+founder. Research properly (search current sources, read the repo) and decide.
+Cite real files and interfaces in the repo. If something you need is missing,
+say what it is instead of guessing.
+
+First write a brief of about 600 words, in plain English:
+- Recommendation.
+- Decisive facts, each with its source and date.
+- Assumptions it rests on.
+- Rejected options, each with the condition under which it would win.
+- Risks.
+- 3 to 5 likely follow-up questions, answered.
+- Questions only the founder can answer.
+
+Then a line containing exactly ${NOTES_MARK} and, after it, your full notes:
+everything you found that a follow-up might need.
+
+The task:
+`;
 // Matched only against Codex's own error events, never against its answer.
 const LIMIT_TEXT = /usage limit|rate.?limit|quota|limit reached/i;
 const now = () => Math.floor(Date.now() / 1000);
@@ -29,11 +53,17 @@ function codex(args, opts = {}) {
   return spawn('codex', args, opts);
 }
 
+// Resolves once the process has exited (or after 15 seconds).
 function killTree(p) {
-  try {
-    if (process.platform === 'win32') spawn('taskkill', ['/pid', String(p.pid), '/T', '/F'], { stdio: 'ignore' });
-    else p.kill();
-  } catch {}
+  return new Promise(res => {
+    if (!p || p.exitCode !== null || p.signalCode !== null) return res();
+    const t = setTimeout(res, 15000);
+    p.once('close', () => { clearTimeout(t); res(); });
+    try {
+      if (process.platform === 'win32') spawn('taskkill', ['/pid', String(p.pid), '/T', '/F'], { stdio: 'ignore' });
+      else p.kill();
+    } catch {}
+  });
 }
 
 function unavailable(reason, until) {
@@ -145,13 +175,14 @@ async function readStdin() {
   return s.trim();
 }
 
-function runCodex(args, prompt, timeoutMin) {
+function runCodex(args, prompt, timeoutMin, cwd) {
   return new Promise(resolve => {
-    const p = codex(args, { stdio: ['pipe', 'pipe', 'pipe'] });
+    const p = codex(args, { stdio: ['pipe', 'pipe', 'pipe'], cwd });
     let buf = '', stderr = '', answer = '', settled = false;
     const errors = [];
     const done = code => { if (settled) return; settled = true; clearTimeout(t); resolve({ code, answer, errors, stderr }); };
-    const t = setTimeout(() => { errors.push('timed out'); killTree(p); done(124); }, timeoutMin * 60000);
+    // On timeout, wait for Codex to really stop so nothing races the fallback.
+    const t = setTimeout(async () => { errors.push('timed out'); await killTree(p); done(124); }, timeoutMin * 60000);
     p.stdout.setEncoding('utf8');
     p.stderr.setEncoding('utf8');
     p.stdout.on('data', d => {
@@ -178,24 +209,27 @@ async function ask(o) {
   if (!MODES[o.mode]) { console.error(`--mode must be one of ${Object.keys(MODES).join(', ')}`); process.exit(2); }
   if (!EFFORTS.includes(o.effort)) { console.error(`--effort must be one of ${EFFORTS.join(', ')}`); process.exit(2); }
   if (o.model && !/^[\w.-]+$/.test(o.model)) { console.error('bad --model'); process.exit(2); }
+  if (o.topic && !/^[\w-]{1,60}$/.test(o.topic)) { console.error('bad --topic (letters, digits, - or _)'); process.exit(2); }
+  const dir = resolve(o.dir || '.');
+  try { if (!statSync(dir).isDirectory()) throw 0; } catch { console.error(`--dir is not a folder: ${dir}`); process.exit(2); }
   const prompt = await readStdin();
   if (!prompt) { console.error('put the prompt on stdin'); process.exit(2); }
 
   const s = await status();
   if (!s.available) unavailable(s.reason, s.until);
 
-  const args = ['exec', '--json', '--ephemeral', '--skip-git-repo-check', '-s', MODES[o.mode],
+  const args = [...(o.mode === 'architect' ? ['--search'] : []), 'exec', '--json', '--ephemeral', '--skip-git-repo-check', '-s', MODES[o.mode],
     '-c', `model_reasoning_effort=${o.effort}`];
   if (o.model) args.push('-m', o.model);
   args.push('-');
 
   const r = process.env.COPARTNER_CODEX_SIMULATE_LIMIT
     ? { code: 1, answer: '', errors: ["You've hit your usage limit. Try again later."], stderr: '' }
-    : await runCodex(args, prompt, Number(o['timeout-min']) || 20);
+    : await runCodex(args, o.mode === 'architect' ? ARCHITECT + prompt : prompt, Number(o['timeout-min']) || 20, dir);
 
   if (r.code === 0 && r.answer) {
     const after = await readAccount();
-    console.log(r.answer);
+    console.log(o.mode === 'architect' ? saveBrief(r.answer, dir, o.topic) : r.answer);
     const ws = windowsOf(after);
     if (ws.length) console.log(`\n[codex usage: ${ws.map(([n, w]) => `${n} ${w.usedPercent}%`).join(', ')}]`);
     return;
@@ -217,6 +251,29 @@ async function ask(o) {
   process.exit(1);
 }
 
+// Names a brief after the main checkout, so worktrees of one repo share them.
+function repoName(dir) {
+  try {
+    const common = execFileSync('git', ['rev-parse', '--path-format=absolute', '--git-common-dir'],
+      { cwd: dir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+    return basename(dirname(common));
+  } catch { return basename(dir); }
+}
+
+// Saves the whole answer and returns the brief plus where the notes are.
+function saveBrief(answer, dir, topic = 'brief') {
+  const brief = answer.split(NOTES_MARK)[0].trim();
+  const stamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '');
+  const path = join(DIR, 'briefs', `${repoName(dir)}-${stamp}-${topic}.md`);
+  try {
+    mkdirSync(dirname(path), { recursive: true });
+    writeFileSync(path, answer);
+    return `${brief}\n\n[full notes: ${path}]`;
+  } catch (e) {
+    return `${answer}\n\n(could not save the notes: ${e.message})`;
+  }
+}
+
 const [cmd, ...rest] = process.argv.slice(2);
 if (cmd === 'status') {
   const s = await status();
@@ -225,6 +282,6 @@ if (cmd === 'status') {
 } else if (cmd === 'ask') {
   await ask(parseArgs(rest));
 } else {
-  console.error('usage: codex-partner.mjs status | ask --mode <mode> --effort <level> < prompt');
+  console.error('usage: codex-partner.mjs status | ask --mode <mode> --effort <level> [--dir <folder>] < prompt');
   process.exit(2);
 }
