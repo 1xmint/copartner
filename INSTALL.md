@@ -53,10 +53,15 @@ second):
 - `~/.claude/skills/engineer-project/SKILL.md`
 - `~/.agents/skills/engineer-project/SKILL.md`
 
+Then download `skills/codex-partner/SKILL.md` and
+`skills/codex-partner/codex-partner.mjs` into
+`~/.claude/skills/codex-partner/`. This one is for Claude Code only: it lets
+Claude use Codex as a partner, and works if Codex is installed and logged in.
+
 ## 5. Check
 Show the user that the marker block is in `~/.codex/AGENTS.md`, the import
 line (or the existing `~/.codex/AGENTS.md` import) is in
-`~/.claude/CLAUDE.md`, and both skill files exist. Everything takes effect in
+`~/.claude/CLAUDE.md`, and the skill files exist. Everything takes effect in
 the next new session.
 
 ## Update
@@ -66,6 +71,7 @@ nothing else.
 ## Uninstall
 Remove the marker block from `~/.codex/AGENTS.md`, the import line from
 `~/.claude/CLAUDE.md`, the `~/.copartner` entry from `writable_roots`, and
-the two `engineer-project` skill folders.
+the two `engineer-project` skill folders, the `codex-partner` skill folder
+and `~/.copartner/codex-paused.json` if it exists.
 Leave `~/.copartner/projects/`, because those are the user's project notes;
 tell them it is there and that they can delete it.

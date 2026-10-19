@@ -36,6 +36,11 @@ remove it, ask to uninstall copartner using the same page.
   writes a roadmap, gets one go-ahead, then plans, builds, proves and merges
   each phase, picking up where it left off in a new session. (The
   `engineer-project` skill; it uses superpowers if you have it.)
+- If you also have Codex, Claude uses it as an engineering partner on your
+  ChatGPT subscription: it challenges plans, reviews before merging, gives a
+  fresh diagnosis when Claude is stuck, and takes tasks off Claude's hands.
+  When Codex runs out of quota, Claude carries on alone until it resets.
+  (The `codex-partner` skill.)
 - It keeps the always-on text short, because every line is read on every
   turn and spends your quota.
 

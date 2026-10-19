@@ -30,12 +30,15 @@ If not, start one:
 1. Work on a branch named `phase/<n>-<short-name>`.
 2. Plan it. If superpowers is installed, use its writing-plans and
    subagent-driven-development skills. If not, write a short task list and
-   hand big, separable tasks to helpers on a cheaper model.
+   hand big, separable tasks to helpers on a cheaper model. If the
+   codex-partner skill is available, have Codex challenge the roadmap and
+   each plan, and give it separable tasks before using Claude helpers.
 3. Build it, testing as you go.
 4. Prove it: run the checks and drive the real flow (start the app, use the
    feature). Fix until it works.
-5. For phases touching money, auth, user data or the architecture, have a
-   fresh helper review the diff. Otherwise check it yourself.
+5. Have the diff reviewed by fresh eyes: Codex through codex-partner if it
+   is available, otherwise a helper for phases touching money, auth, user
+   data or the architecture, and your own check for the rest.
 6. Commit, push, open a pull request, and merge once checks pass.
 7. Update the note: phase done with the date and the proof, decisions and
    why, and any change to later phases that this one taught you.

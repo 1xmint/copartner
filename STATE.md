@@ -47,6 +47,23 @@
 - Installed to `~/.claude/skills/` (Claude Code) and `~/.agents/skills/`
   (Codex).
 
+## 2026-10-18: Codex as Claude's partner
+- Added the `codex-partner` skill (Claude Code only) and its helper script.
+  Claude calls Codex at set moments (plan challenge, review before merge,
+  stuck bugs, hard choices, separable tasks) with an effort chosen per
+  moment, and falls back to Claude when Codex is out. Why: the owner wants
+  their ChatGPT subscription used first as a second brain.
+- Not on every turn: calls take minutes and Claude still reads the answer,
+  so constant use would cost Claude quota, not save it.
+- Built our own instead of OpenAI's codex-plugin-cc: its review commands
+  can't be started by Claude itself, its task path runs through a Sonnet
+  wrapper, and its prompts target an older model.
+- Quota is read up front from Codex's local app server
+  (`account/rateLimits/read`, 5-hour and weekly percent). Usage-limit errors
+  are the backstop. Either one pauses Codex until the reset time, kept in
+  `~/.copartner/codex-paused.json`. The app-server call is not a documented
+  API; if it stops answering, the helper falls back to errors only.
+
 Known problems:
 - Not yet checked: that Codex can write project notes to `~/.copartner`
   after the `writable_roots` change. (Claude's auto mode did allow writing
