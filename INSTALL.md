@@ -3,7 +3,8 @@
 These steps are for the AI agent (Claude Code or Codex) to carry out when the
 user asks to be set up with copartner. Do every step, then tell the user in
 two or three plain sentences what changed. Never overwrite a file the user
-already has: add to it, and copy it to `<file>.before-copartner` first.
+already has: add to it, and copy it to `<file>.before-copartner` first
+(unless that copy already exists from an earlier install).
 
 If your sandbox blocks writing to these folders or downloading (Codex blocks
 writes to its own settings folder), don't ask the user to change permissions.
@@ -46,14 +47,29 @@ Skip this step if that file already imports `~/.codex/AGENTS.md`, because
 Claude then gets the rules through step 2 and would load them twice.
 
 ## 4. Skills
+A skill folder is copartner's own only if it holds nothing but copartner's
+files and its `SKILL.md` description starts with one of these:
+
+- cofounder: "The cofounder loop for big questions and big work"
+- codex-partner: "Uses Codex (GPT, on the user's ChatGPT subscription)"
+- engineer-project (older): "Runs a big project phase by phase" or "Checks a
+  big idea is worth building, then runs it phase by phase"
+- think-it-through (older): "Carries a judgement question or a big, vague
+  ask"
+
+Any other folder with one of these names is the user's own. Never replace or
+remove it: skip that skill and tell the user why.
+
 Download `skills/cofounder/SKILL.md` from the base URL to both of these,
-replacing any older copy (Claude Code reads the first, Codex the second):
+replacing an older copartner copy (Claude Code reads the first, Codex the
+second):
 
 - `~/.claude/skills/cofounder/SKILL.md`
 - `~/.agents/skills/cofounder/SKILL.md`
 
-If an older install left `engineer-project` or `think-it-through` skill
-folders in either place, remove them: `cofounder` replaces both.
+If an older install left copartner's `engineer-project` or
+`think-it-through` folders in either place, remove them: `cofounder`
+replaces both.
 
 Then download `skills/codex-partner/SKILL.md` and
 `skills/codex-partner/codex-partner.mjs` into
@@ -64,7 +80,8 @@ Claude use Codex as a partner, and works if Codex is installed and logged in.
 Big questions and big work run through the cofounder skill, which switches
 to Opus at high effort by itself, so a mid-size model is enough for the
 rest. Ask the user once whether to set Claude Code's default model to Sonnet (`"model": "sonnet"` in
-`~/.claude/settings.json`). Change it only if they say yes.
+`~/.claude/settings.json`). Change it only if they say yes, after copying
+the file to `settings.json.before-copartner`.
 
 ## 6. Check
 Show the user that the marker block is in `~/.codex/AGENTS.md`, the import
@@ -78,8 +95,15 @@ nothing else.
 
 ## Uninstall
 Remove the marker block from `~/.codex/AGENTS.md`, the import line from
-`~/.claude/CLAUDE.md`, the `~/.copartner` entry from `writable_roots`, and
-both `cofounder` skill folders, the `codex-partner` skill folder and `~/.copartner/codex-paused.json` if it exists.
+`~/.claude/CLAUDE.md`, the `~/.copartner` entry from `writable_roots`,
+`~/.copartner/rules.md`, `~/.copartner/codex-paused.json` if it exists, and
+the `cofounder` and `codex-partner` skill folders, each only if it is
+copartner's own (see step 4).
+
+If step 5 set the default model and it is still `"sonnet"`, put back what
+`~/.claude/settings.json.before-copartner` had (remove `"model"` if it had
+none); if there is no such copy, ask the user before changing it.
+
 Leave `~/.copartner/projects/` and `~/.copartner/briefs/`, because those are
-the user's project notes and research;
-tell them it is there and that they can delete it.
+the user's project notes and research, and any `.before-copartner` copies.
+Tell them where these are and that they can delete them.

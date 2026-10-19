@@ -11,7 +11,8 @@
 // saved to ~/.copartner/briefs/ and the path is printed after the brief.
 //
 // Exit codes: 0 answer printed, 3 Codex unavailable (use Claude instead),
-// 1 other error, 2 bad arguments.
+// 4 timed out and Codex may still be running (no fallback yet), 1 other
+// error, 2 bad arguments.
 
 import { spawn, execFileSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync, renameSync, rmSync, statSync } from 'node:fs';
@@ -53,14 +54,19 @@ function codex(args, opts = {}) {
   return spawn('codex', args, opts);
 }
 
-// Resolves once the process has exited (or after 15 seconds).
+// Resolves true once the process tree has stopped, or false if that isn't
+// confirmed within 15 seconds (Codex may still be running).
 function killTree(p) {
   return new Promise(res => {
-    if (!p || p.exitCode !== null || p.signalCode !== null) return res();
-    const t = setTimeout(res, 15000);
-    p.once('close', () => { clearTimeout(t); res(); });
+    if (!p || p.exitCode !== null || p.signalCode !== null) return res(true);
+    let closed = false, killed = process.platform !== 'win32';
+    const check = () => { if (closed && killed) { clearTimeout(t); res(true); } };
+    const t = setTimeout(() => res(false), 15000);
+    p.once('close', () => { closed = true; check(); });
     try {
-      if (process.platform === 'win32') spawn('taskkill', ['/pid', String(p.pid), '/T', '/F'], { stdio: 'ignore' });
+      // taskkill exits 0 only when it ended the whole tree.
+      if (process.platform === 'win32') spawn('taskkill', ['/pid', String(p.pid), '/T', '/F'], { stdio: 'ignore' })
+        .on('error', () => {}).once('close', c => { killed = c === 0; check(); });
       else p.kill();
     } catch {}
   });
@@ -178,11 +184,16 @@ async function readStdin() {
 function runCodex(args, prompt, timeoutMin, cwd) {
   return new Promise(resolve => {
     const p = codex(args, { stdio: ['pipe', 'pipe', 'pipe'], cwd });
-    let buf = '', stderr = '', answer = '', settled = false;
+    let buf = '', stderr = '', answer = '', settled = false, timedOut = false;
     const errors = [];
-    const done = code => { if (settled) return; settled = true; clearTimeout(t); resolve({ code, answer, errors, stderr }); };
+    const done = (code, stillRunning = false) => { if (settled) return; settled = true; clearTimeout(t); resolve({ code, answer, errors, stderr, stillRunning, pid: p.pid }); };
     // On timeout, wait for Codex to really stop so nothing races the fallback.
-    const t = setTimeout(async () => { errors.push('timed out'); await killTree(p); done(124); }, timeoutMin * 60000);
+    const t = setTimeout(async () => {
+      timedOut = true;
+      errors.push('timed out');
+      const stopped = await killTree(p);
+      done(124, !stopped);
+    }, timeoutMin * 60000);
     p.stdout.setEncoding('utf8');
     p.stderr.setEncoding('utf8');
     p.stdout.on('data', d => {
@@ -199,7 +210,7 @@ function runCodex(args, prompt, timeoutMin, cwd) {
     });
     p.stderr.on('data', d => { stderr = (stderr + d).slice(-4000); });
     p.on('error', e => { errors.push(String(e)); done(1); });
-    p.on('close', c => done(c ?? 1));
+    p.on('close', c => { if (!timedOut) done(c ?? 1); });
     p.stdin.on('error', () => {});
     p.stdin.end(prompt);
   });
@@ -233,6 +244,13 @@ async function ask(o) {
     const ws = windowsOf(after);
     if (ws.length) console.log(`\n[codex usage: ${ws.map(([n, w]) => `${n} ${w.usedPercent}%`).join(', ')}]`);
     return;
+  }
+
+  if (r.stillRunning) {
+    console.log(`CODEX_STILL_RUNNING: Codex timed out and could not be confirmed stopped (process ${r.pid}).`);
+    console.log(`Do not start a fallback and do not reuse ${dir}: Codex may still be editing it.`);
+    console.log('Tell the user, and wait until that process has ended before doing this step another way.');
+    process.exit(4);
   }
 
   // Failed. The server's view of usage decides whether it was the quota; the

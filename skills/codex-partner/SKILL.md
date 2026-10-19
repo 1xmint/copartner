@@ -77,6 +77,9 @@ Prompts that get good answers:
 - For a task, wait for the helper to exit (including on timeout), then check
   its commits and its uncommitted changes, confirm no proof was edited, and
   run the proof yourself before keeping it. Keep it or redo it, never both.
+- Exit code 4 (`CODEX_STILL_RUNNING`) means Codex timed out and may still be
+  running. Don't start a fallback or reuse its folder; tell the user, and
+  wait until that process has ended.
 
 ## When Codex is out
 Exit code 3 (`CODEX_UNAVAILABLE`) means out of quota, not installed, not
