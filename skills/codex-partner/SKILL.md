@@ -1,6 +1,6 @@
 ---
 name: codex-partner
-description: Uses Codex (GPT, on the user's ChatGPT subscription) as Claude's engineering partner while it has quota - an architect that researches and returns a short brief, challenging plans, one review before merging, a fresh diagnosis when stuck, and taking well-specified tasks off Claude's hands - then falls back to Claude when Codex runs out. Use at those moments in big or risky work, not for small asks.
+description: Uses Codex (GPT, on the user's ChatGPT subscription) as Claude's engineering partner while it has quota - an architect that researches and returns a short brief, challenging plans, one review before merging, a fresh diagnosis when stuck, and taking well-specified tasks off Claude's hands - then falls back to Claude when Codex runs out. Use at those moments in big or risky work, and whenever the user asks a judgement question (is this sound, what's best, how does it compare, is it worth building, which architecture) - not for small asks.
 ---
 
 # Codex as engineering partner

@@ -1,6 +1,6 @@
 ---
 name: engineer-project
-description: Runs a big project phase by phase until it is done - a roadmap with Outcomes, then plan, build and prove each phase, delegating to a team of helpers - and picks up where it left off in any later session. Use when the user asks to engineer or build something big (a new app, a system with many parts), or says to carry on with one. Not for small or single-step tasks.
+description: Checks a big idea is worth building, then runs it phase by phase until it is done - a roadmap with Outcomes, then plan, build and prove each phase, delegating to a team of helpers - and picks up where it left off in any later session. Use when the user asks to engineer or build something big (a new app, a system with many parts), or says to carry on with one. Not for small or single-step tasks.
 ---
 
 # Engineer a project, phase by phase
@@ -28,7 +28,7 @@ Go to the Architect, not your own judgement, when any of these is true:
 - a choice that is costly to reverse (stack, data model, auth, hosting);
 - money, auth or user data;
 - two fixes for the same problem have failed;
-- the user asks "why", "what's best" or for research.
+- the user asks "why", "what's best", "is it worth it" or for research.
 
 Give it the user's own words, the relevant part of the conversation, the
 Outcomes and the note. Ask it to cite real files and interfaces in the repo
@@ -49,16 +49,21 @@ If not, start one:
 1. Find out the goal. Ask only questions the user can answer about the
    product (who it's for, what it must do first, what's out), in one round,
    each with your recommended answer.
-2. Settle the stack and architecture through the Architect. Prefer boring,
+2. Check it is worth building, through the Architect: does something
+   already do this well enough to use or copy, what is the riskiest
+   assumption, and what is the cheapest way to test it? If the answer is
+   "don't build" or "build less", say so plainly and recommend the better
+   route before any roadmap.
+3. Settle the stack and architecture through the Architect. Prefer boring,
    well-known tools and the simplest structure that will hold at the
    finished size.
-3. Write a roadmap of 3 to 8 phases into the note under "Roadmap". Phase 1
+4. Write a roadmap of 3 to 8 phases into the note under "Roadmap". Phase 1
    is the thinnest version that runs end to end. Give each phase its
    Outcomes (2 to 5): what the user will see, and the proof, including the
    failure case. Later phases stay a line or two until they start.
-4. List every setup item only the user can provide (accounts, keys,
+5. List every setup item only the user can provide (accounts, keys,
    policies, prices).
-5. Ask for one go-ahead covering the roadmap, the Outcomes and the setup
+6. Ask for one go-ahead covering the roadmap, the Outcomes and the setup
    items, all at once. Say it covers building every phase and merging each
    once its proofs and checks pass, and that you'll stop only for what is
    theirs to decide. Until setup items arrive, build against test modes and

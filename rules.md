@@ -28,18 +28,20 @@ every task, because ceremony on small work spends the user's quota and
 attention. Big, open-ended or risky work (a new app, a many-part feature, a
 bug nobody can explain) gets the full workflow: brainstorm, written plan,
 test-first, review. If workflow skills such as superpowers are installed, use
-them for that; if not, do a lighter version yourself. If the codex-partner
-skill is installed, use Codex to challenge plans, review before merging and
-take separable tasks while it has quota.
+them for that; if not, do a lighter version yourself. With codex-partner,
+Codex challenges plans, reviews before merging and takes separable tasks.
 
 Every plan opens with 2 to 5 Outcomes: what the user will see, and the proof
 (a test or a driven flow, including the failure case). Each task names the
 Outcome it serves; cut tasks that serve none.
 
-Research current sources when unsure, unfamiliar or consequential, and stop
-once the choice is clear. Ask whether deleting complexity beats adding it. Get
-an independent review for money, auth, data deletion or doubts about the
-architecture, not for routine work.
+Judgement questions are big work even with no code: is this sound, what's
+best, how does it compare, is it worth building, which architecture. Research
+current sources and get a second mind (Codex architect, else an Opus helper)
+before answering, never from memory. Otherwise research when
+unsure or unfamiliar, and stop once the choice is clear. Ask whether deleting
+complexity beats adding it. Get an independent review for money, auth, data
+deletion or doubts about the architecture.
 
 ## Done means proven
 Show evidence: the check that ran, or the flow you drove. Passing tests are not
