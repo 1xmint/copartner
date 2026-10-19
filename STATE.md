@@ -161,9 +161,21 @@ on real projects and report back what works worse or better.
   back to the session model, though the skill's text stays in context.
 - rules.md is 3,993 of 4,000 bytes.
 
+Proof, same soundness question, 2026-10-19:
+- Copartner as a real app session (started on Sonnet): the skill loaded by
+  itself, switched to Opus, made 3 web searches, and put the whole answer
+  in the message. It skipped the challenge step (no Codex or Opus call).
+- Plain plan mode (`--safe-mode --permission-mode plan`, Opus high): also
+  a full answer, 3 searches and 4 page reads, about 6 minutes.
+- Codex judged both blind, claims checked against the repo: copartner won
+  narrowly (accuracy 7 v 6, recommendation 8 v 6, clarity 8 v 7). Both
+  overstated some claims; neither ran an outside challenge.
+- Fix: the skill now says never to skip the challenge, and the self-check
+  asks whether it ran.
+
 Known problems:
-- Not yet checked: whether a skill's `effort` lasts past the skill for the
-  rest of the turn (its `model` does).
+- In the real app run the effort indicator stayed low after the skill
+  loaded, so the skill's `effort: high` may not apply in the app.
 - Not yet checked: that Codex can write project notes to `~/.copartner`
   after the `writable_roots` change. (Claude's auto mode did allow writing
   there.)

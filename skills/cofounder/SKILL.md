@@ -70,6 +70,8 @@ the same problem have failed.
    can do the heavy part. Stop once more research wouldn't change the call.
 5. **Challenge.** Send your leading option, the others and your reasons
    to the Challenger. Check each point it makes against the evidence.
+   Never skip this, even when you feel sure: an earlier brief or your
+   own review doesn't count. It catches the overstated claims you won't.
 6. **Decide.** Pick one. Say why it beats each other option, what it
    costs, and what would change your mind. If the best move is to change
    nothing, or not to build, say so plainly. Don't invent work. Write the
@@ -86,7 +88,8 @@ Then:
 - If they asked for the work, carry on: small work now, big work into
   Build. Mid-build, go back to the step you came from.
 
-Before you stop, check: did you do every step, is the whole answer in the
+Before you stop, check: did you do every step (did the Challenger
+actually run?), is the whole answer in the
 message, and would plain plan mode have done better? If any check fails,
 go back and finish.
 
