@@ -173,6 +173,24 @@ Proof, same soundness question, 2026-10-19:
 - Fix: the skill now says never to skip the challenge, and the self-check
   asks whether it ran.
 
+## 2026-10-19: helper timeout and safe install
+A real-use test and a blind Codex review both found these at 3344356:
+- The helper's timeout gave up after 15 seconds without knowing Codex had
+  stopped, so the claim above ("waits for Codex to really stop") was not
+  true. Now it only counts Codex as stopped when the process has closed
+  (and, on Windows, `taskkill` ended the whole tree). If not, it prints
+  `CODEX_STILL_RUNNING` and exits 4, and the skill says not to start a
+  fallback or reuse the folder until that process ends.
+- CI now runs `node --check` on the helper, so a syntax error fails the PR.
+- Install removed any `engineer-project` or `think-it-through` folder and
+  replaced same-name skills, even a user's own. Now a skill folder is only
+  replaced or removed if its description matches copartner's (listed in
+  INSTALL.md step 4); otherwise it is skipped and the user is told. Changing
+  a skill's description now means adding the new opening to that list.
+- Uninstall now also removes `~/.copartner/rules.md`, removes skill folders
+  only if they are copartner's, and puts back the default model if step 5
+  changed it. Backups are not overwritten on a second install.
+
 Known problems:
 - In the real app run the effort indicator stayed low after the skill
   loaded, so the skill's `effort: high` may not apply in the app.

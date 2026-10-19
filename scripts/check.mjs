@@ -1,4 +1,6 @@
-// Fails if rules.md outgrows its budget or any file carries personal details.
+// Fails if rules.md outgrows its budget, the helper script doesn't parse, or
+// any file carries personal details.
+import { execFileSync } from 'node:child_process';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -7,6 +9,14 @@ const problems = [];
 
 const rulesSize = statSync('rules.md').size;
 if (rulesSize > RULES_LIMIT) problems.push(`rules.md is ${rulesSize} bytes, limit ${RULES_LIMIT}`);
+
+const HELPER = 'skills/codex-partner/codex-partner.mjs';
+try {
+  execFileSync(process.execPath, ['--check', HELPER], { stdio: ['ignore', 'ignore', 'pipe'] });
+} catch (e) {
+  problems.push(`${HELPER} has a syntax error:
+${e.stderr}`);
+}
 
 const personal = [
   [/[A-Za-z]:[\\/]+Users[\\/]+[^\\/\s]+/, 'Windows home folder path'],
@@ -41,4 +51,4 @@ if (problems.length) {
   console.error(problems.join('\n'));
   process.exit(1);
 }
-console.log(`ok: rules.md ${rulesSize}/${RULES_LIMIT} bytes, no personal details`);
+console.log(`ok: rules.md ${rulesSize}/${RULES_LIMIT} bytes, helper parses, no personal details`);
