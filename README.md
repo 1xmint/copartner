@@ -32,13 +32,19 @@ remove it, ask to uninstall copartner using the same page.
 - It asks you only about what the product should do, money, credentials and
   anything public or irreversible, and leads with a recommendation.
 - "Done" comes with evidence: the check that ran or the flow it drove.
+- Every plan starts with Outcomes: what you'll see, and how it will be
+  proved. Each piece of work says which Outcome it serves.
 - Big projects run phase by phase: ask it to engineer something big and it
-  writes a roadmap, gets one go-ahead, then plans, builds, proves and merges
-  each phase, picking up where it left off in a new session. (The
+  writes a roadmap with Outcomes, asks once for the go-ahead and anything
+  only you can set up (accounts, keys), then plans, builds, proves and merges
+  each phase, picking up where it left off in a new session. It runs the
+  team itself: an Architect for research and big design calls, one reviewer,
+  and workers for separable tasks. You never manage agents. (The
   `engineer-project` skill; it uses superpowers if you have it.)
-- If you also have Codex, Claude uses it as an engineering partner on your
-  ChatGPT subscription: it challenges plans, reviews before merging, gives a
-  fresh diagnosis when Claude is stuck, and takes tasks off Claude's hands.
+- If you also have Codex, Claude uses it as that team on your ChatGPT
+  subscription: Architect (with web search, returning a short brief),
+  reviewer before merging, a fresh diagnosis when Claude is stuck, and
+  worker in its own worktree.
   When Codex runs out of quota, Claude carries on alone until it resets.
   (The `codex-partner` skill.)
 - It keeps the always-on text short, because every line is read on every

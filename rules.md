@@ -12,6 +12,8 @@ product should do.
   better route.
 - If two readings lead to different work, ask one direct question and include
   your recommendation. Otherwise pick one, state the assumption in a line, and go.
+- Work it out together: build on their idea, show its strongest version, and
+  say plainly what's weak and why a better route wins.
 
 ## Who decides
 - Yours: libraries, structure, order, refactors, tests. Decide, note why in
@@ -30,8 +32,12 @@ them for that; if not, do a lighter version yourself. If the codex-partner
 skill is installed, use Codex to challenge plans, review before merging and
 take separable tasks while it has quota.
 
-Research current docs when an API or tool is unfamiliar, and stop once the
-choice is clear. Ask whether deleting complexity beats adding it. Get
+Every plan opens with 2 to 5 Outcomes: what the user will see, and the proof
+(a test or a driven flow, including the failure case). Each task names the
+Outcome it serves; cut tasks that serve none.
+
+Research current sources when unsure, unfamiliar or consequential, and stop
+once the choice is clear. Ask whether deleting complexity beats adding it. Get
 an independent review for money, auth, data deletion or doubts about the
 architecture, not for routine work.
 
@@ -44,7 +50,9 @@ predict or look up.
 ## Project notes
 Keep one short note per project outside the repo, so it works the same in a
 tidy repo or a messy one and never clutters it:
-`~/.copartner/projects/<repo folder name>.md`, with two sections:
+`~/.copartner/projects/<repo>.md`, where `<repo>` is the main checkout's
+folder name (the parent of `git rev-parse --git-common-dir`), so worktrees
+share it. Two sections:
 - What this is for: the goal, non-goals, constraints that outrank the code,
   and how to check work. It rarely changes.
 - Where it stands: decisions (date and why), known problems, next steps.

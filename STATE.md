@@ -64,12 +64,44 @@
   `~/.copartner/codex-paused.json`. The app-server call is not a documented
   API; if it stops answering, the helper falls back to errors only.
 
+## 2026-10-19: a cofounder that runs its own team
+What each change fixes (found by a Codex and an Opus review of the plan,
+and checked against the files; compared with Kiro, Spec Kit, BMAD, GSD,
+Anthropic's and Cognition's write-ups):
+- Outcomes in every plan (rules): plans said what to build but not how each
+  piece serves the goal. Each task names its Outcome; proofs include the
+  failure case and are written first. Workers can't edit proofs.
+- Architect mode in codex-partner: big design calls and research go to Codex
+  with web search (Opus if Codex is out), which returns a ~600-word brief and
+  saves full notes to `~/.copartner/briefs/`. Keeps the main chat's context
+  clean and lets a cheaper main chat talk coherently. Hard triggers for when
+  to use it, because weaker main models under-escalate.
+- One approval up front (engineer-project): superpowers' plan and execution
+  questions plus ours were up to five stops. Now one go-ahead covers the
+  roadmap, Outcomes and user-only setup items; superpowers is told not to ask.
+- One owner per review gate: per-task reviews only for money, auth or data;
+  one Codex (or Opus) review per phase, one round.
+- "Now" block in the note and the note named after the main checkout, so a
+  new session or a worktree resumes in-progress work.
+- Helper fixes: a timeout now waits for Codex to really stop before the
+  fallback starts; `--dir` runs a task in its own worktree.
+- No saved helper agents: the Agent tool takes a model per call. No persona
+  teams, hooks, best-of-N or agent teams: they cost tokens without evidence
+  of better results.
+- rules.md is 3,802 of 4,000 bytes.
+
+Merged before a real run, by the owner's call: they prove it by using it
+on real projects and report back what works worse or better.
+
 Known problems:
 - Not yet checked: that Codex can write project notes to `~/.copartner`
   after the `writable_roots` change. (Claude's auto mode did allow writing
   there.)
 
 Next:
+0. From real use, watch for: stops after the one approval, a Codex worker's
+   work kept or redone cleanly, Architect briefs that hold up on follow-up,
+   and resuming from a worktree.
 1. Ship a tested one-command installer (and uninstaller) in the repo, so
    the agent hands over that command instead of writing one.
 2. More on-demand skills (such as reviewing money or auth code), only if
