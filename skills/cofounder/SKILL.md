@@ -28,7 +28,8 @@ drift apart.
 The map has three levels, no more: the blueprint, the roadmap's phases, and
 the plan for the phase being built. Each level points up (`Serves O2`) and
 never restates what's above it. Plans and specs are scaffolding: when their
-phase merges, what lasts goes into the note and the plan is deleted. When
+phase merges, what lasts goes into the note and the plan file this loop
+wrote is deleted (never a plan someone else wrote). When
 reality contradicts the note, fix the note before carrying on.
 
 One loop: **Decide**, then **Build** if the user asked for the work.
@@ -169,7 +170,8 @@ go back and finish.
    a pull request, and merge once checks pass.
 8. Update the note: each Outcome's result (pass or fail, commit, CI link),
    decisions and why, any change to later phases, and the phase's new
-   status. Then delete the phase plan. A later change to code an Outcome
+   status. Then delete the plan file you wrote for this phase and clear
+   its path from the "Now" block. A later change to code an Outcome
    covers makes its result stale until re-run.
 9. Tell the user in two lines what now works, as the scenario they can
    check (or what is still uncertain), and what's next, then start the
@@ -181,8 +183,8 @@ delete one. If a proof is wrong, change it yourself and say why in the note.
 ### With superpowers
 If superpowers is installed, use its writing-plans and execution skills for
 phase steps 2 and 4, with these preferences (its skills accept them):
-- Save plans and specs next to the note, in
-  `~/.copartner/projects/<repo>/`, not in the repo.
+- Save plans and specs in `~/.copartner/projects/<repo>/`, not in the
+  repo, even when the note itself lives in the repo.
 - The go-ahead already covers each phase: don't ask for plan review or for
   an execution style.
 - Execute inline by default. Use per-task reviews only for tasks touching
