@@ -133,8 +133,12 @@ go back and finish.
    assumptions, costs and limits), the roadmap, the Outcomes and the setup
    items, all at once. Say it covers building every phase and merging each
    once its proofs and checks pass, and that you'll stop only for what is
-   theirs to decide. Until setup items arrive, use test modes and fakes
-   for the rest, but not for the probe.
+   theirs to decide.
+7. After the go-ahead, run the probe and the outside-service checks
+   first, before building anything that depends on them. If a stop
+   trigger fires, go back to Decide at once. If the probe needs a setup
+   item that hasn't arrived, pause the work that depends on it; use test
+   modes and fakes only for work the probe doesn't decide.
 
 ### Each phase
 1. Branch `phase/<n>-<short-name>`. Update the "Now" block.

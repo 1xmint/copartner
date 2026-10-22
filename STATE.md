@@ -223,8 +223,9 @@ Changes to the cofounder skill:
 - Build > Start: technical questions become product questions; a
   plain-words blueprint (kind of system, stack and why, what was rejected,
   parts and data flow, what's costly to change) goes in the note; the
-  riskiest assumption gets a cheap probe and a stop trigger that run in
-  phase 1, with a real check of critical outside services, not fakes.
+  riskiest assumption gets a cheap probe and a stop trigger, run with a
+  real check of critical outside services right after the go-ahead and
+  before any building that depends on them, not faked.
   Phase 1's first Outcome is a scenario the user can check without code.
 - Each phase: a progress check before merging (visible behaviour, or an
   answered unknown that changed a decision; otherwise back to Decide), and
@@ -237,12 +238,14 @@ probe, the user-checkable scenario, and "keep this design" as a pass.
 Dropped from the draft: a rules.md line stopping superpowers'
 brainstorming from running alongside cofounder (no session in the owner's
 transcripts loaded both, so no evidence of the problem), and the install
-list edit (the description's opening is unchanged).
+list edit (the description's opening is unchanged). Codex's review of the
+diff found one gap, fixed: the probe could run after the whole first
+version was built, so it now runs first after the go-ahead.
 The skill grew from about 9.9 to 11.8 KB; it loads only for big work.
 
 Proof, from real use (not yet run):
 - Next genuine blocked decision: current copartner vs this revision, same
   snapshot, prompt, model and effort, judged blind by Codex on accuracy,
   missed constraints, simplicity and quota.
-- Next new-project request: blueprint and probe before code, the user
-  scenario first. Next small ask: no extra ceremony.
+- Next new-project request: blueprint before code, probe before
+  substantial building, the user scenario first. Next small ask: no extra ceremony.
