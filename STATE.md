@@ -249,3 +249,26 @@ Proof, from real use (not yet run):
   missed constraints, simplicity and quota.
 - Next new-project request: blueprint before code, probe before
   substantial building, the user scenario first. Next small ask: no extra ceremony.
+
+## 2026-10-22: one map, plans as scaffolding
+Problem, seen in the owner's own setup: their rules keep project memory in
+each repo's AGENTS.md and STATE.md (11 repos use it), while the skill also
+keeps a note in `~/.copartner/projects/` and told sessions to write lasting
+decisions in both. No cofounder build has run yet, so the first one would
+have started two copies that drift apart. Plans had no end of life, so a
+stale plan could mislead a later session.
+Changes to the cofounder skill:
+- When the user's rules keep memory elsewhere, that is the note; never a
+  second copy.
+- The map has three levels (blueprint, roadmap phases, current phase plan);
+  each points up and never restates the level above. A deeper plan tree was
+  weighed and rejected for the same reasons as the 2026-10-19 plan graph:
+  more copies to drift and more approval stops, with no parallel writers
+  to pay for it.
+- Plans and specs are scaffolding: deleted once their phase merges, after
+  what lasts goes into the note. If reality contradicts the note, fix the
+  note first.
+- Each roadmap phase is marked done, building or next, so the user sees the
+  map at a glance.
+rules.md unchanged. Proof, from real use: the next cofounder build in a repo
+with its own STATE.md keeps one map there, and no plan outlives its phase.
