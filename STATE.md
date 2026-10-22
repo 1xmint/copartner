@@ -206,3 +206,46 @@ Next:
    the agent hands over that command instead of writing one.
 2. More on-demand skills (such as reviewing money or auth code), only if
    real use shows a gap they fill.
+
+## 2026-10-22: blueprint, early probe, checkable progress
+Problem, from the owner: a vibe coder can't pick a language, judge a
+layout or read code, so they can't tell when the agent heads the wrong
+way. copartner asked for a stack choice but not a blueprint, deferred
+setup-dependent work behind fakes until last, and gave phase updates the
+user had no way to check.
+Changes to the cofounder skill:
+- Read first adds "recognise": name the known kind of system the question
+  touches, where it matches proven designs and where it doesn't, checked
+  by reading or tracing; never a whole-system survey for a narrow repair.
+- Options: simplify only when the gain beats migration, regression and
+  upkeep cost; a simpler replacement first pins the behaviour users rely
+  on. "Keep this design" stays a valid answer.
+- Build > Start: technical questions become product questions; a
+  plain-words blueprint (kind of system, stack and why, what was rejected,
+  parts and data flow, what's costly to change) goes in the note; the
+  riskiest assumption gets a cheap probe and a stop trigger, run with a
+  real check of critical outside services right after the go-ahead and
+  before any building that depends on them, not faked.
+  Phase 1's first Outcome is a scenario the user can check without code.
+- Each phase: a progress check before merging (visible behaviour, or an
+  answered unknown that changed a decision; otherwise back to Decide), and
+  updates name the scenario the user can check.
+- `.gitattributes` forces LF: with `core.autocrlf=true` a Windows checkout
+  made rules.md 4,068 bytes and the local check failed while CI passed.
+Codex (gpt-6.1-sol, high) challenged the first draft. Taken: a smaller
+recognise step (no mandatory prior-art helper or fixed counts), the early
+probe, the user-checkable scenario, and "keep this design" as a pass.
+Dropped from the draft: a rules.md line stopping superpowers'
+brainstorming from running alongside cofounder (no session in the owner's
+transcripts loaded both, so no evidence of the problem), and the install
+list edit (the description's opening is unchanged). Codex's review of the
+diff found one gap, fixed: the probe could run after the whole first
+version was built, so it now runs first after the go-ahead.
+The skill grew from about 9.9 to 11.8 KB; it loads only for big work.
+
+Proof, from real use (not yet run):
+- Next genuine blocked decision: current copartner vs this revision, same
+  snapshot, prompt, model and effort, judged blind by Codex on accuracy,
+  missed constraints, simplicity and quota.
+- Next new-project request: blueprint before code, probe before
+  substantial building, the user scenario first. Next small ask: no extra ceremony.

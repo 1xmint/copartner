@@ -59,12 +59,21 @@ the same problem have failed.
    assumption and go.
 2. **Read first.** No edits yet. Read the note, the repo's own notes and
    the real files the question touches; send bulky reading to the Scout.
-   Check claims in code, not in summaries or old notes.
+   Check claims in code, not in summaries or old notes. Then recognise it:
+   trace the flow the question touches, name the known kind of system it
+   resembles (a job queue, a cache, a sync engine...), and list where it
+   matches how proven designs do it and where it doesn't. Check those
+   claims by reading or tracing. Keep this to what the question touches;
+   never survey a whole system for a narrow repair.
 3. **Options.** Write down the real, distinct options, usually three or
    more. Always weigh "change nothing" and "remove or simplify something";
    don't pad the list. For each: what it gets the user, what it costs
    (quota, time, attention, risk). For a new idea, include "use or copy
    what already exists" and the cheapest test of the riskiest assumption.
+   Simplify only when the gain beats the cost of migrating, regressions
+   and upkeep; a part a famous project lacks may still be needed here.
+   A simpler replacement first pins the behaviour the user relies on
+   (existing tests may encode bugs or miss things), then keeps it.
 4. **Research** what the choice hinges on, from current sources (official
    docs, changelogs, real reports), with links and dates. The Architect
    can do the heavy part. Stop once more research wouldn't change the call.
@@ -97,21 +106,39 @@ go back and finish.
 ### Start
 1. Ask only what the user can answer about the product (who it's for,
    what it must do first, what's out), in one round, each with your
-   recommended answer.
-2. Decide whether it's worth building, then the stack and architecture.
-   Prefer boring, well-known tools and the simplest structure that will
-   hold at the finished size.
-3. Write a roadmap of 3 to 8 phases into the note under "Roadmap". Phase 1
-   is the thinnest version that runs end to end. Give each phase its
-   Outcomes (2 to 5): what the user will see, and the proof, including the
-   failure case. Later phases stay a line or two until they start.
-4. List every setup item only the user can provide (accounts, keys,
+   recommended answer. Turn technical questions into product ones: not
+   "which database?" but "must it work offline? do several people edit
+   at once?". Technical choices stay yours.
+2. Decide whether it's worth building, then write the blueprint into the
+   note, in plain words: what kind of system it is, the language and stack
+   and why (where it runs, who maintains it, mature tools, what you write
+   reliably), what you rejected and why, the main parts and how data
+   flows, and what will be expensive to change later. Prefer boring,
+   well-known tools and the simplest structure that will hold at the
+   finished size. No code before the go-ahead.
+3. Name the riskiest assumption (the one that would sink the project or
+   force a redesign), the cheapest probe for it, and the result that
+   would mean stop or change course.
+4. Write a roadmap of 3 to 8 phases into the note under "Roadmap". Phase 1
+   is the thinnest version that runs end to end, and runs the probe and a
+   real check of any critical outside service (API, payments, hosting).
+   Its first Outcome is a scenario the user can check without reading
+   code: "give it this, you'll see this; here's what happens when it goes
+   wrong". Give each phase its Outcomes (2 to 5): what the user will see,
+   and the proof, including the failure case. Later phases stay a line or
+   two until they start.
+5. List every setup item only the user can provide (accounts, keys,
    policies, prices).
-5. Ask for one go-ahead covering the roadmap, the Outcomes and the setup
+6. Ask for one go-ahead covering the blueprint's product side (its
+   assumptions, costs and limits), the roadmap, the Outcomes and the setup
    items, all at once. Say it covers building every phase and merging each
    once its proofs and checks pass, and that you'll stop only for what is
-   theirs to decide. Until setup items arrive, build against test modes and
-   fakes, and put the phases that need the real thing last.
+   theirs to decide.
+7. After the go-ahead, run the probe and the outside-service checks
+   first, before building anything that depends on them. If a stop
+   trigger fires, go back to Decide at once. If the probe needs a setup
+   item that hasn't arrived, pause the work that depends on it; use test
+   modes and fakes only for work the probe doesn't decide.
 
 ### Each phase
 1. Branch `phase/<n>-<short-name>`. Update the "Now" block.
@@ -126,12 +153,17 @@ go back and finish.
 6. One review on the diff against the Outcomes. Fix findings that threaten
    an Outcome or a rule; drop the rest with a line of why. Review again only
    if a fix changed the design.
-7. Commit, push, open a pull request, and merge once checks pass.
+7. Progress check before merging: the phase must show behaviour the user
+   can see, or an answered unknown that changed a decision. If it shows
+   neither, or the probe or evidence contradicts the plan, go back to
+   Decide instead of starting the next phase. Otherwise commit, push, open
+   a pull request, and merge once checks pass.
 8. Update the note: each Outcome's result (pass or fail, commit, CI link),
    decisions and why, and any change to later phases. A later change to
    code an Outcome covers makes its result stale until re-run.
-9. Tell the user in two lines what now works and what's next, then start
-   the next phase without waiting.
+9. Tell the user in two lines what now works, as the scenario they can
+   check (or what is still uncertain), and what's next, then start the
+   next phase without waiting.
 
 Proofs belong to you. Workers may make a proof pass but never edit, skip or
 delete one. If a proof is wrong, change it yourself and say why in the note.

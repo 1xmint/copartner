@@ -1,0 +1,2 @@
+# LF everywhere, so the local rules.md byte check matches CI on Windows.
+* text=auto eol=lf
